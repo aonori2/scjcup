@@ -1,0 +1,4 @@
+[08-Dec-2023 14:47:44 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home/ujgagxol/public_html/scjcup.com/wp-content/themes/jstork/index.php:1
+Stack trace:
+#0 {main}
+  thrown in /home/ujgagxol/public_html/scjcup.com/wp-content/themes/jstork/index.php on line 1
