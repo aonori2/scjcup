@@ -345,3 +345,13 @@
 [26-Jun-2025 00:29:44 UTC] PHP Notice:  Function _load_textdomain_just_in_time was called <strong>incorrectly</strong>. Translation loading for the <code>query-monitor</code> domain was triggered too early. This is usually an indicator for some code in the plugin or theme running too early. Translations should be loaded at the <code>init</code> action or later. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.7.0.) in /home/cmnfsqpx/public_html/wp-includes/functions.php on line 6121
 [26-Jun-2025 00:29:44 UTC] PHP Notice:  Function _load_textdomain_just_in_time was called <strong>incorrectly</strong>. Translation loading for the <code>acf</code> domain was triggered too early. This is usually an indicator for some code in the plugin or theme running too early. Translations should be loaded at the <code>init</code> action or later. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.7.0.) in /home/cmnfsqpx/public_html/wp-includes/functions.php on line 6121
 [26-Jun-2025 00:29:44 UTC] PHP Notice:  Function _load_textdomain_just_in_time was called <strong>incorrectly</strong>. Translation loading for the <code>login-customizer</code> domain was triggered too early. This is usually an indicator for some code in the plugin or theme running too early. Translations should be loaded at the <code>init</code> action or later. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 6.7.0.) in /home/cmnfsqpx/public_html/wp-includes/functions.php on line 6121
+[27-Jun-2025 09:01:50 UTC] PHP Warning:  Array to string conversion in /home/cmnfsqpx/a.php on line 3
+[27-Jun-2025 09:07:12 UTC] PHP Warning:  unserialize(): Error at offset 528 of 767 bytes in /home/cmnfsqpx/a.php on line 3
+[27-Jun-2025 09:11:06 UTC] PHP Warning:  unserialize(): Error at offset 528 of 767 bytes in /home/cmnfsqpx/a.php on line 3
+[27-Jun-2025 12:42:09 UTC] PHP Warning:  Undefined variable $a in /home/cmnfsqpx/a.php on line 3
+[27-Jun-2025 12:42:09 UTC] PHP Deprecated:  unserialize(): Passing null to parameter #1 ($data) of type string is deprecated in /home/cmnfsqpx/a.php on line 3
+[27-Jun-2025 12:42:50 UTC] PHP Fatal error:  Uncaught TypeError: json_decode(): Argument #1 ($json) must be of type string, array given in /home/cmnfsqpx/a.php:4
+Stack trace:
+#0 /home/cmnfsqpx/a.php(4): json_decode(Array, 1)
+#1 {main}
+  thrown in /home/cmnfsqpx/a.php on line 4

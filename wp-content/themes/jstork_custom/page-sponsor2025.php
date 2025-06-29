@@ -9,6 +9,7 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
 
 ?>
 <?php get_header(); ?>
+
 <div class="mian-image-area">
     <img class="main-img" src="<?=get_stylesheet_directory_uri(); ?>/img/S__2285785.jpg">
 </div>

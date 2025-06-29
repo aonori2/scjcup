@@ -108,6 +108,8 @@ if ($team_posts) {
                 if($group_name1 && $group_name1 != $tmp_group){
                     continue;
                 }
+            } else {
+                continue;
             }
         }
 
@@ -256,6 +258,17 @@ if ($team_posts) {
             <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)&y=<?=$tournament;?>">プレミア</a>
             <a href="<?=home_url();?>/league/?group=ゴールドリーグ(中位)&y=<?=$tournament;?>">ゴールド</a>
             <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)&y=<?=$tournament;?>">シルバー</a>
+        </div>    
+        <?php
+        }elseif($group_name == "プレミアリーグ(上位)A" || $group_name == "ゴールドリーグ(中位)A" || $group_name == "シルバーリーグ(下位)A" || $group_name == "プレミアリーグ(上位)B" || $group_name == "ゴールドリーグ(中位)B" || $group_name == "シルバーリーグ(下位)B"){
+        ?>
+        <div class="schedule-group-button-area">
+            <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)A&y=<?=$tournament;?>">プレミアA</a>
+            <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)B&y=<?=$tournament;?>">プレミアB</a>
+            <a href="<?=home_url();?>/league/?group=ゴールドリーグ(中位)A&y=<?=$tournament;?>">ゴールドA</a>
+            <a href="<?=home_url();?>/league/?group=ゴールドリーグ(中位)B&y=<?=$tournament;?>">ゴールドB</a>
+            <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)A&y=<?=$tournament;?>">シルバーA</a>
+            <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)B&y=<?=$tournament;?>">シルバーB</a>
         </div>    
         <?php
         }elseif($group_name == "プレミアリーグ(上位)-トーナメント" || $group_name == "ゴールドリーグ(中位)-順位決定戦" || $group_name == "シルバーリーグ(下位)-順位決定戦"){

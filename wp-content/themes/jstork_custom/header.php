@@ -180,7 +180,7 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
                 <div class="px-1 py-2 d-flex">
                     <img class="site-logo mt-3 ms-1" src="<?=get_stylesheet_directory_uri(); ?>/img/saitama_logo.gif">
                     <div class="mx-2">
-                        <img src="<?=get_stylesheet_directory_uri(); ?>/img/shimamura_header_logo.jpg?1">
+                        <a href=/<?= ($_REQUEST['y']!=2025&&$_REQUEST['y']) ? '?y='.$_REQUEST['y'] : ''; ?>><img src="<?=get_stylesheet_directory_uri(); ?>/img/shimamura_header_logo.jpg?1" border=0></a>
                         <p class="text-m text-md site-title font-bold">さいたまシティジュニアカップ<span class="site-sub-title"><?=$tournament;?></span></p>
                     </div>
                 </div>

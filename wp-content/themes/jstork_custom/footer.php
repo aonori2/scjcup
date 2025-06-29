@@ -6,6 +6,53 @@ $tournament = $_REQUEST['y'] ?? '';
 if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
     $tournament = $default_year;
 }
+
+$args = array(
+    'posts_per_page' => -1,
+    'post_type'      => 'tournament',
+    'orderby'        => 'modified',
+    'order'          => 'DESC',
+    'name'           => $tournament,
+);
+$tournament_posts = get_posts($args);
+$tournament_id = "";
+
+if ($tournament_posts) {
+    foreach ($tournament_posts as $post) {
+        $tournament_id = $post->ID;
+        $tournament_img = get_field('tournament_team_img');
+    }
+    wp_reset_postdata();
+}
+
+// チームを取得
+$args = array(
+    'posts_per_page' => -1,
+    'post_type'      => 'team',
+    'orderby'        => 'modified',
+    'order'          => 'DESC',
+    'meta_query'     => array(
+        array(
+            'key'     => 'tournament_schedule', // 投稿オブジェクトフィールドのキーを指定
+            'value'   => $tournament_id,
+            'compare' => '='
+        )
+    )
+);
+$team_posts = get_posts($args);
+$group_list = array();
+if ($team_posts) {
+    foreach ($team_posts as $post) {
+        setup_postdata($post);
+
+        $tmp_group = get_field('team_group');
+        //グループ指定があった場合は該当してないものを飛ばす
+        $group_list[$tmp_group] = $tmp_group;
+        if($group_name && $group_name != $tmp_group){
+            continue;
+        }
+    }
+}
 ?>
 <footer>
 	<div class="container">
@@ -21,15 +68,15 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
 							<li>
 								<a href="<?=home_url();?>/group/?y=<?=$tournament;?>"><i class="fas fa-chevron-right me-2"></i>すべてのチーム</a>
 							</li>
-							<li>
-								<a href="<?=home_url();?>/group/?group=グループA&y=<?=$tournament;?>"><i class="fas fa-chevron-right me-2"></i>グループA</a>
-							</li>
-							<li>
-								<a href="<?=home_url();?>/group/?group=グループB&y=<?=$tournament;?>"><i class="fas fa-chevron-right me-2"></i>グループB</a>
-							</li>
-							<li>
-								<a href="<?=home_url();?>/group/?group=グループC&y=<?=$tournament;?>"><i class="fas fa-chevron-right me-2"></i>グループC</a>
-							</li>
+                            <?php
+                            //存在するグループ分だけリンク生成
+                            ksort($group_list);
+                            foreach($group_list as $group_name){
+                            ?>
+                                <li><a href="/group/?group=<?=$group_name;?>&y=<?=$tournament;?>"><i class="fas fa-chevron-right me-2"></i><?=$group_name;?></a></li>
+                            <?
+                            }
+                            ?>
 						</ul>
 					</li>
 					<li>
@@ -41,21 +88,19 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
 							<li class="footer-nav-sub-item">
 								<p class="footer-nav-sub-item-title" data-target="1">グループリーグ</p>
 								<ul id="footer-nav-item-second-area1" class="hidden">
-									<li class="nav-sub-item">
-										<a href="<?=home_url();?>/league/?group=グループA&y=<?=$tournament;?>">
-											<i class="fas fa-chevron-right me-2"></i>グループA
-										</a>
-									</li>
-									<li class="nav-sub-item">
-										<a href="<?=home_url();?>/league/?group=グループB&y=<?=$tournament;?>">
-											<i class="fas fa-chevron-right me-2"></i>グループB
-										</a>
-									</li>
-									<li class="nav-sub-item">
-										<a href="<?=home_url();?>/league/?group=グループC&y=<?=$tournament;?>">
-											<i class="fas fa-chevron-right me-2"></i>グループC
-										</a>
-									</li>
+                                    <?php
+                                    //存在するグループ分だけリンク生成
+                                    ksort($group_list);
+                                    foreach($group_list as $group_name){
+                                    ?>
+									    <li class="nav-sub-item">
+                                            <a href="/league/?group=<?=$group_name;?>&y=<?=$tournament;?>">
+                                                <i class="fas fa-chevron-right me-2"></i><?=$group_name;?>
+                                            </a>
+                                        </li>
+                                    <?
+                                    }
+                                    ?>
 								</ul>
 							</li>
 
@@ -63,7 +108,7 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
 								<p class="footer-nav-sub-item-title" data-target="2">プレミアリーグ(上位)</p>
 								<ul id="footer-nav-item-second-area2" class="hidden">
                                     <li class="nav-sub-item">
-                                        <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)&y=<?=$tournament;?>">
+                                        <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)A&y=<?=$tournament;?>">
                                             <i class="fas fa-chevron-right me-2"></i>グループLeague
                                         </a>
                                     </li>
@@ -145,6 +190,7 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
 						</ul>
 					</li>
 					<li>
+                        <?php $tournament = 2024; ?>
 						<a href="<?=home_url();?>/sponsor<?=$tournament;?>/?y=<?=$tournament;?>">協賛企業ご紹介</a>
 					</li>
 <!--					
