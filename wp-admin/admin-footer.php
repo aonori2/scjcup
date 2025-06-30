@@ -115,5 +115,16 @@ if ( function_exists( 'get_site_option' )
 
 <div class="clear"></div></div><!-- wpwrap -->
 <script type="text/javascript">if(typeof wpOnload==='function')wpOnload();</script>
+<?php
+// 管理者権限の場合のみ対象とする
+if ( current_user_can( '_tournament_editor' ) ) {
+    global $wpdb;
+    echo "<pre>";
+    // SQL クエリを表示
+    print_r( $wpdb->queries );
+    echo "</pre>";
+}
+?>
+
 </body>
 </html>

@@ -23,6 +23,8 @@
 /** The name of the database for WordPress */
 define( 'DB_NAME', 'cmnfsqpx_crr0z1z' );
 
+#define( 'SAVEQUERIES', true );
+
 /** Database username */
 define( 'DB_USER', 'cmnfsqpx_wp_dywbr' );
 

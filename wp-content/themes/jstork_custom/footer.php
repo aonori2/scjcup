@@ -104,11 +104,12 @@ if ($team_posts) {
 								</ul>
 							</li>
 
+<?php if ( $tournament<=2024 ): ?>
                             <li class="nav-sub-item">
 								<p class="footer-nav-sub-item-title" data-target="2">プレミアリーグ(上位)</p>
 								<ul id="footer-nav-item-second-area2" class="hidden">
                                     <li class="nav-sub-item">
-                                        <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)A&y=<?=$tournament;?>">
+                                        <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)&y=<?=$tournament;?>">
                                             <i class="fas fa-chevron-right me-2"></i>グループLeague
                                         </a>
                                     </li>
@@ -139,6 +140,43 @@ if ($team_posts) {
                                     </li>
                                 </ul>
                             </li>
+<?php else: ?>
+                            <li class="nav-sub-item">
+								<p class="footer-nav-sub-item-title" data-target="2">プレミアリーグ(上位)</p>
+								<ul id="footer-nav-item-second-area2" class="hidden">
+                                    <li class="nav-sub-item">
+                                        <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)A&y=<?=$tournament;?>">
+                                            <i class="fas fa-chevron-right me-2"></i>グループLeague
+                                        </a>
+                                    </li>
+                                    <li class="nav-sub-item">
+                                        <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)-トーナメント&y=<?=$tournament;?>">
+                                            <i class="fas fa-chevron-right me-2"></i>Tournament
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-sub-item">
+								<p class="footer-nav-sub-item-title" data-target="3">ゴールドリーグ(中位)</p>
+								<ul id="footer-nav-item-second-area3" class="hidden">
+                                    <li class="nav-sub-item">
+                                        <a href="<?=home_url();?>/league/?group=ゴールドリーグ(中位)A&y=<?=$tournament;?>">
+                                            <i class="fas fa-chevron-right me-2"></i>グループLeague
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-sub-item">
+								<p class="footer-nav-sub-item-title" data-target="4">シルバーリーグ(下位)</p>
+								<ul id="footer-nav-item-second-area4" class="hidden">
+                                    <li class="nav-sub-item">
+                                        <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)A&y=<?=$tournament;?>">
+                                            <i class="fas fa-chevron-right me-2"></i>グループLeague
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+<?php endif; ?>
 
 <!--
 							<li class="footer-nav-sub-item">
@@ -190,7 +228,6 @@ if ($team_posts) {
 						</ul>
 					</li>
 					<li>
-                        <?php $tournament = 2024; ?>
 						<a href="<?=home_url();?>/sponsor<?=$tournament;?>/?y=<?=$tournament;?>">協賛企業ご紹介</a>
 					</li>
 <!--					
@@ -203,6 +240,16 @@ if ($team_posts) {
 		</div>
 	</div>
 </footer>
+<?php
+// 管理者権限の場合のみ対象とする
+if ( current_user_can( '_tournament_editor' ) ) {
+    global $wpdb;
+    echo "<pre>";
+    // SQL クエリを表示
+    print_r( $wpdb->queries );
+    echo "</pre>";
+}
+?>
 <?php wp_footer(); ?>
 </body>
 </html>

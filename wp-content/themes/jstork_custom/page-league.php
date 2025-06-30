@@ -247,13 +247,20 @@ if ($team_posts) {
         ?>
         <p class="mx-2 schedule-sub-title">グループリーグ</p>
         <div class="schedule-group-button-area">
-            <a href="<?=home_url();?>/league/?group=グループA&y=<?=$tournament;?>">A</a>
-            <a href="<?=home_url();?>/league/?group=グループB&y=<?=$tournament;?>">B</a>
-            <a href="<?=home_url();?>/league/?group=グループC&y=<?=$tournament;?>">C</a>
+                        <?php
+                        //存在するグループ分だけリンク生成
+                        ksort($group_list);
+                        foreach($group_list as $group_name){
+                        ?>
+                                <a href="/league/?group=<?=$group_name;?>&y=<?=$tournament;?>"><?=$group_name;?></a>
+                        <?
+                        }
+                        ?>
         </div>
         <?php
         }elseif($group_name == "プレミアリーグ(上位)" || $group_name == "ゴールドリーグ(中位)" || $group_name == "シルバーリーグ(下位)"){
         ?>
+        <p class="mx-2 schedule-sub-title">順位決定リーグ</p>
         <div class="schedule-group-button-area">
             <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)&y=<?=$tournament;?>">プレミア</a>
             <a href="<?=home_url();?>/league/?group=ゴールドリーグ(中位)&y=<?=$tournament;?>">ゴールド</a>
@@ -262,6 +269,7 @@ if ($team_posts) {
         <?php
         }elseif($group_name == "プレミアリーグ(上位)A" || $group_name == "ゴールドリーグ(中位)A" || $group_name == "シルバーリーグ(下位)A" || $group_name == "プレミアリーグ(上位)B" || $group_name == "ゴールドリーグ(中位)B" || $group_name == "シルバーリーグ(下位)B"){
         ?>
+        <p class="mx-2 schedule-sub-title">順位決定リーグ</p>
         <div class="schedule-group-button-area">
             <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)A&y=<?=$tournament;?>">プレミアA</a>
             <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)B&y=<?=$tournament;?>">プレミアB</a>
@@ -270,9 +278,14 @@ if ($team_posts) {
             <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)A&y=<?=$tournament;?>">シルバーA</a>
             <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)B&y=<?=$tournament;?>">シルバーB</a>
         </div>    
+        <br />
+        <div class="schedule-group-button-area">
+            <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)AB-トーナメント&y=<?=$tournament;?>">プレミアトーナメント</a>
+        </div>    
         <?php
         }elseif($group_name == "プレミアリーグ(上位)-トーナメント" || $group_name == "ゴールドリーグ(中位)-順位決定戦" || $group_name == "シルバーリーグ(下位)-順位決定戦"){
         ?>        
+        <p class="mx-2 schedule-sub-title">順位決定リーグ</p>
         <div class="schedule-group-button-area">
             <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)-トーナメント&y=<?=$tournament;?>">プレミアトーナメント</a>
             <a href="<?=home_url();?>/league/?group=ゴールドリーグ(中位)-順位決定戦&y=<?=$tournament;?>">ゴールド順位決定戦</a>
@@ -340,8 +353,81 @@ if ($team_posts) {
             </table>
         </div>
 
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="/js/jquery-bracket-master/dist/jquery.bracket.min.js"></script>
+<link href="/js/jquery-bracket-master/dist/jquery.bracket.min.css" rel="stylesheet">
+
         <!-- 試合見出し -->
         <div class="mt-5">
+
+<div id="resize" class="demo" style="height:400px;">
+</div>
+<script type="text/javascript">
+
+var singleElimination = {
+  "teams": [              // Matchups
+    ["Team 1", "Team 2"], // First match
+    ["Team 3", "Team 4"], // Second match
+    ["Team 5", "Team 6"], // First match
+    ["Team 7", "Team 8"]  // Second match
+  ],
+  "results": [            // List of brackets (single elimination, so only one bracket)
+    [                     // List of rounds in bracket
+      [                   // First round in this bracket
+        [1, 2],           // Team 1 vs Team 2
+        [3, 4],           // Team 3 vs Team 4
+        [1, 2],           // Team 1 vs Team 2
+        [3, 4]            // Team 3 vs Team 4
+      ],
+      [                   // Second (final) round in single elimination bracket
+        [5, 6],           // Match for first place
+        [7, 8]            // Match for 3rd place
+      ],
+      [                   // Second (final) round in single elimination bracket
+        [5, 6],           // Match for first place
+        [7, 6],           // Match for first place
+      ]
+    ]
+  ]
+}
+$('.demo').bracket({
+  init: singleElimination,
+  teamWidth: 60,
+});
+
+$('.demo').bracket({
+  init: null, // data to initialize
+  save: null, // called whenever bracket is modified
+  userData: null, // custom user data
+  onMatchClick: null, // callback
+  onMatchHover: null, // callback
+  decorator: null, // a function
+  skipSecondaryFinal: false,
+  skipGrandFinalComeback: false,
+  skipConsolationRound: false,
+  dir: 'rl', // "rl" or  "lr",
+  disableToolbar: false,
+  disableTeamEdit: false,
+  teamWidth: 200, // number
+  scoreWidth: '', // number
+  roundMargin: '', // number
+  matchMargin: '', // number
+});
+
+var resizeParameters = {
+  teamWidth: 60,
+  scoreWidth: 20,
+  matchMargin: 10,
+  roundMargin: 50,
+  init: minimalData
+};
+ 
+function updateResizeDemo() {
+  $('#resize .demo').bracket(resizeParameters);
+}
+ 
+$(updateResizeDemo)
+</script>
 
             <?php
             //取得できた試合数分だけループ
