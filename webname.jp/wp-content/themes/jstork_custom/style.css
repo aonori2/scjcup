@@ -1,0 +1,566 @@
+@charset "utf-8";
+/*
+Template: jstork
+Theme Name: トーナメント管理
+Theme URI:http://open-cage.com/stork/
+Description: 主にサッカー大会等の開催を管理するためのテーマです。
+Version: 1.0
+*/
+ul li {
+    display: block;
+}
+
+body p {
+    margin-bottom: 0;
+}
+
+body a {
+    text-decoration: none;
+    color: black;
+}
+
+body a:hover {
+    color: black;
+}
+
+.text-lg {
+    font-size: 22px;
+}
+
+.text-l {
+    font-size: 18px;
+}
+
+.text-md {
+    font-size: 14px;
+}
+
+.text-sm {
+    font-size: 12px;
+}
+
+.text-xs {
+    font-size: 10px;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+/* header */
+
+header {
+    position: sticky;
+    position: -webkit-sticky;/*Safari用ベンダープレフィックス*/
+    top: 0;/*ブラウザの上からの距離はゼロ*/
+    z-index: 20;
+}
+
+.header-left {
+    background-color: white;
+}
+
+.header-right {
+    background-color: rgb(96, 184, 96);
+}
+
+.site-logo {
+    height: 25px;
+    width: auto;
+}
+
+.site-title {
+    color: rgb(1, 109, 1);
+}
+
+.site-sub-title {
+    color: red;
+}
+
+/* ハンバーガーメニュー */
+
+.toggle_btn {
+    z-index: 20;
+}
+
+.toggle_btn span {
+    display: block;
+    position: absolute;
+    right: 20px;
+    width: 30px;
+    height: 2px;
+    background-color: white;
+    border-radius: 4px;
+    transition: all .5s;
+}
+
+.toggle_btn span:nth-child(1) {
+    top: 20px;
+}
+.toggle_btn span:nth-child(2) {
+    top: 30px;
+}
+.toggle_btn span:nth-child(3) {
+    top: 40px;
+}
+.open .toggle_btn span {
+background-color: #fff;
+}
+.open .toggle_btn span:nth-child(1) {
+-webkit-transform: translateY(10px) rotate(-315deg);
+transform: translateY(10px) rotate(-315deg);
+}
+.open .toggle_btn span:nth-child(2) {
+opacity: 0;
+}
+.open .toggle_btn span:nth-child(3) {
+-webkit-transform: translateY(-10px) rotate(315deg);
+transform: translateY(-10px) rotate(315deg);
+}
+
+nav {
+    position: absolute;
+    top:0px;
+    right: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(96, 184, 96);
+    z-index: 10;
+    position: fixed;
+    transition: all .5s;
+    padding: 100px 40px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
+}
+
+.open  {
+    right: 0;
+    opacity: 1;
+}
+
+nav ul {
+    padding: 0px;
+}
+
+.nav-area {
+    height: 100%;
+}
+
+
+nav ul li {
+    display: block;
+    font-weight: 100;
+    font-size: 16px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    padding: 18px;
+}
+
+nav ul li:last-child {
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+nav ul li a {
+    color: white;
+}
+
+.nav-item {
+    color: white;
+}
+
+.nav-item-sub-area {
+    display: none;
+}
+
+.nav-item-sub {
+    border-top: none;
+}
+
+.visible li:last-child {
+    border-bottom: none;
+}
+
+.nav-sub-item {
+    border: none;
+    color: white;
+}
+
+/* main */
+
+body main {
+    background-color: rgb(253, 255, 254);
+}
+
+.main-img {
+    width: 100%;
+    height: auto;
+}
+
+.title {
+    position: relative;
+}
+
+.title::after {
+    content: '';
+    width: 110px;
+    height: 4px;
+    display: inline-block;
+    background-color: rgb(96, 184, 96);
+    position: absolute;
+    bottom: -10px;
+    left: calc(50% - 55px)
+}
+
+/* 大会概要 */
+
+.overview-box-2 {
+    background-color: rgb(235, 246, 238);
+    border-radius: 4px;
+    box-shadow: 0px 3px #00b88a;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.overview-box-2-title {
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.overview-box-2-title::after {
+    content: '';
+    width: 3px;
+    height: 14px;
+    display: inline-block;
+    background-color: #00b88a;
+    position: absolute;
+    top: 3px;
+    left: -10px;
+    transform: rotate(25deg);
+}
+
+.overview-text-area-box {
+    background-color: rgb(235, 246, 238);
+    border-bottom: solid 2px #00b88a;
+    align-items: center;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 5px 10px;
+}
+
+.overview-text-area {
+    background-color: rgb(235, 246, 238);
+    border-radius: 4px;
+    box-shadow: 0px 3px #00b88a;
+}
+
+/* 参加チーム一覧 */
+
+.team-section {
+    border-bottom: 1px solid rgb(195, 195, 195);
+}
+
+.team-block-title {
+    background-color: rgb(96, 184, 96);
+    color: white;
+    text-align: center;
+}
+
+.team-logo {
+    width: 100%;
+    height: auto;
+}
+
+.team-img {
+    width: 100%;
+    height: auto;
+}
+
+.team-sub-title {
+    position: relative;
+}
+
+.team-sub-title::after {
+    content: '';
+    width: 3px;
+    height: 18px;
+    display: inline-block;
+    background-color: rgb(43, 161, 43);
+    position: absolute;
+    left: -8px;
+}
+
+.player-area {
+    border-bottom: 1px rgb(166, 165, 165) solid;
+}
+
+.player-name-img {
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+}
+
+/* 会場一覧 */
+
+body iframe {
+    width: 100%;
+    height: 350px;
+}
+
+/* 日程結果 */
+
+.schedule-group-button-area {
+    display: flex;
+    justify-content: space-around;
+}
+
+.schedule-group-button-area a {
+    padding: 10px 35px;
+    background-color: #eaeaea;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.schedule-sub-title {
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 8px;
+}
+
+.schedule-sub-title::after {
+    content: '';
+    width: 3px;
+    height: 18px;
+    display: inline-block;
+    background-color: #e60012;
+    position: absolute;
+    top: 3px;
+    left: -10px;
+}
+
+.schedule-group-name {
+    margin-top: 45px;
+    font-size: 16px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.table-header p {
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.table-th-bg {
+    background-color: #eaeaea;
+}
+
+.schedule-group-section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    font-weight: 600;
+    background-color: rgb(104, 202, 104);
+    color: white;
+    border-bottom: 1px solid rgb(53, 129, 53);
+}
+
+.schedule-group-detail-wrapper {
+    margin: 5px 0;
+    padding: 20px 10px;
+    border: 3px solid #b4b3b3;
+}
+
+.schedule-game-table {
+    width: 100%;
+}
+
+.schedule-detail-team {
+    width: 20%;
+    text-align: center;
+}
+
+.schedule-place-name {
+    color: #5f5e5e;
+}
+
+.schedule-group-detail {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.schedule-game-status-before {
+    padding: 2px 10px;
+    border-radius: 2px;
+    background-color: rgb(104, 202, 104);
+    font-size: 10px;
+    font-weight: 400;
+    color: white;
+}
+
+.schedule-game-status-after {
+    padding: 2px 10px;
+    border-radius: 2px;
+    background-color: #7E7E7E;
+    font-size: 10px;
+    font-weight: 400;
+    color: white;
+}
+
+.schedule-team-logo {
+    width: 60px;
+    height: auto;
+}
+
+.schedule-score {
+    font-weight: 600;
+}
+
+.schedule-team-name {
+    font-weight: 600;
+}
+
+.tournament-img {
+    width: 100%;
+    height: auto;
+}
+
+.schedule-game-table-button {
+    background-color: rgb(250, 111, 111);
+    border: rgb(250, 111, 111) 3px solid;
+    border-radius: 20px;
+    padding: 12px 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 協賛 */
+
+.sponsorship-title {
+    position: relative;
+}
+
+.sponsorship-title::after {
+    content: '';
+    width: 3px;
+    height: 14px;
+    display: inline-block;
+    background-color: #00b88a;
+    position: absolute;
+    top: 3px;
+    left: -10px;
+    transform: rotate(25deg);
+}
+
+.sponsorship-img {
+    width: 100%;
+    height: auto;
+}
+
+.sponsorship-sub-title {
+    display: flex;
+    align-items: center;
+}
+
+.sponsorship-sub-title::before,
+.sponsorship-sub-title::after {
+    content: "";
+    height: 3px;
+    flex-grow: 1;
+    background-color: rgb(96, 184, 96);
+}
+
+.sponsorship-sub-title::before {
+    margin-right: 1rem;
+}
+
+.sponsorship-sub-title::after {
+    margin-left: 1rem;
+}
+
+
+/* クーポン */
+
+.modal_pop {
+    width: 100vw;
+    height: 100vh;
+    position:fixed;
+    top: 0;
+    left:0;
+    z-index:9997!important;
+}
+
+.bg{
+    background-color: rgba(83, 83, 83, 0.6);
+    width: 100%;
+    height: 100%;
+    position:fixed;
+    z-index:9998!important;
+}
+
+.modal_pop img{
+    width: 100%;
+    height: 45vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index:9999!important;
+}
+
+/* footer */
+
+footer {
+    background-color: rgb(96, 184, 96);
+}
+
+.footer-area {
+    display: flex;
+    justify-content: space-between;
+}
+.footer-nav ul li {
+    padding: 15px 0;
+}
+
+.footer-nav a {
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+}
+
+.footer-nav-item {
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+}
+
+.footer-logo {
+    width: 300px;
+    height: auto;
+    position: absolute;
+    bottom: 10px;
+}
+
+.footer-nav-sub-item-title {
+    color: white;
+}
+
+@media screen and (max-width: 800px) {
+    .footer-logo {
+        width: 100px;
+        height: auto;
+    }
+}
