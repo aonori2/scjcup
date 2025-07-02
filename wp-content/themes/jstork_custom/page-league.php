@@ -340,18 +340,19 @@ if ($team_posts) {
                 $page = 3;
             }
         ?>
-        <?php endif; ?>
 
-<?php if ( strstr($_SERVER['HTTP_USER_AGENT'], "Chrome") ): ?>
+<?php if ( $tournament == 2025 && strstr($_SERVER['HTTP_USER_AGENT'], "Chrome") ): ?>
         <iframe width="300" height="400" src="<?= home_url(); ?>/web/viewer.html?file=/img/report.pdf#page=<?= $page ?>&zoom=page-width" allowfullscreen></iframe>
+        <a href="<?= home_url(); ?>/web/viewer.html?file=/img/report.pdf">pdfファイル</a>
 
 <?php else: ?>
         <!embed src="/img/report.pdf#page=<?= $page ?>" type="application/pdf" width="100%" height="600">
 
 <?php endif; ?>
+        <?php endif; ?>
 
         <?php
-        if($group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"||$group_name == "グループD" || $group_name == "グループE" || $group_name == "グループF"):
+        if($tournament<=2024 || $group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"||$group_name == "グループD" || $group_name == "グループE" || $group_name == "グループF"):
         ?>
         <div class="schedule-group-name mb-3">
             <p class="font-bold"><?=$group_name;?></p>
@@ -419,7 +420,7 @@ if ($team_posts) {
 
                 <!-- 第N試合 -->
                 <?php
-                if(1||$match_count%2==1){
+                if($tournament==2025||$match_count%2==1){
                     //$loop++;
                     $loop = $match_count;
                 ?>
@@ -568,10 +569,14 @@ if ($team_posts) {
                         ?>
                     </div>
                 </div>
-            <?
-                }
-            }
-            ?>
+            <?php } ?>
+                        <?php if ( $loop == 4 ): ?>
+                        <div class="schedule-group-button-area" />
+                        <img src="/img/e1710_1.png" width=300 style="position:absolute; left:230px; top;50px;" /><img src="/img/1737848547401.jpg" width=300  style="margin:20px;"/>
+
+                        </div>
+                        <?php endif; ?>
+            <?php } ?>
 
 
         </div>
