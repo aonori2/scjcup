@@ -16,4 +16,6 @@
     RedirectMatch 301 ^/hogehoge/(.*) /fugafuga/$1
 </IfModule>
 # Origin Setting
-
+<IfModule mod_mime.c>
+    AddType text/javascript mjs
+</IfModule>

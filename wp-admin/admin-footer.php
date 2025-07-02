@@ -124,6 +124,14 @@ if ( current_user_can( '_tournament_editor' ) ) {
     print_r( $wpdb->queries );
     echo "</pre>";
 }
+
+function sql_dump($query)
+{
+    file_get_contents("$query", '/tmp/wordpress.log', FILE_APPEND	);
+    return $query;
+}
+add_filter('query', 'sql_dump');
+
 ?>
 
 </body>

@@ -1,7 +1,7 @@
 <?php
 // デフォルトの年を設定
-#$default_year = wp_get_year();
-$default_year = 2024;
+$default_year = wp_get_year();
+#$default_year = 2024;
 $tournament = $_REQUEST['y'] ?? '';
 if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
     $tournament = $default_year;

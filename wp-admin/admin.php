@@ -419,11 +419,3 @@ if ( ! empty( $_REQUEST['action'] ) ) {
 	 */
 	do_action( "admin_action_{$action}" );
 }
-
-function sql_dump($query)
-{
-    error_log("$query\n", 3, '/tmp/wordpress.log');
-    return $query;
-}   
-#add_filter('query', 'sql_dump');
-

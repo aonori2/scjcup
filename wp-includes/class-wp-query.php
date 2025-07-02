@@ -485,6 +485,7 @@ class WP_Query {
 	 */
 	private $query_cache_key = '';
 
+	private $year;
 	/**
 	 * Resets query flags to false.
 	 *
@@ -2245,7 +2246,7 @@ class WP_Query {
 			$post__in_for_where = array_unique( array_map( 'absint', $post__in_for_where ) );
 			sort( $post__in_for_where );
 			$post__in = implode( ',', array_map( 'absint', $post__in_for_where ) );
-			$where   .= " AND {$wpdb->posts}.ID IN ($post__in)";
+			$where   .= " AND {$wpdb->posts}.ID In ($post__in)";
 		} elseif ( $q['post__not_in'] ) {
 			sort( $q['post__not_in'] );
 			$post__not_in = implode( ',', array_map( 'absint', $q['post__not_in'] ) );
@@ -2400,6 +2401,7 @@ class WP_Query {
 			$q['author'] = implode( ',', $authors );
 		}
 
+		$year = $this->wp_get_year();
 		if ( ! empty( $q['author__not_in'] ) ) {
 			if ( is_array( $q['author__not_in'] ) ) {
 				$q['author__not_in'] = array_unique( array_map( 'absint', $q['author__not_in'] ) );
@@ -2413,7 +2415,7 @@ class WP_Query {
 				sort( $q['author__in'] );
 			}
 			$author__in = implode( ',', array_map( 'absint', array_unique( (array) $q['author__in'] ) ) );
-			$where     .= " AND {$wpdb->posts}.post_author IN ($author__in) ";
+			$where     .= " AND {$wpdb->posts}.post_author iN ($author__in) ";
 		}
 
 		// Author stuff for nice URLs.
@@ -2612,6 +2614,11 @@ class WP_Query {
 		} elseif ( ! empty( $post_type ) ) {
 			$post_type_where  = $wpdb->prepare( " AND {$wpdb->posts}.post_type = %s", $post_type );
 			$post_type_object = get_post_type_object( $post_type );
+            if ( isset($year_check) ){
+            $year_check .= $post_type;
+            } else {
+            $year_check  = $post_type;
+            }
 		} elseif ( $this->is_attachment ) {
 			$post_type_where  = " AND {$wpdb->posts}.post_type = 'attachment'";
 			$post_type_object = get_post_type_object( 'attachment' );
@@ -2655,9 +2662,20 @@ class WP_Query {
 			if ( in_array( 'any', $q_status, true ) ) {
 				foreach ( get_post_stati( array( 'exclude_from_search' => true ) ) as $status ) {
 					if ( ! in_array( $status, $q_status, true ) ) {
+                        $year_check .= $status;
 						$e_status[] = "{$wpdb->posts}.post_status <> '$status'";
 					}
 				}
+                if ( 'playertrashauto-draft' == $year_check && isset($_REQUEST['post_id']) ){
+                    $querymeta = "SELECT meta_value FROM ZDZkNwxu_postmeta WHERE post_id IN ({$_REQUEST['post_id']}) ";
+                    $psid = $this->wp_get_metadata($querymeta, $_REQUEST['field_key']);
+                    if ( $psid ){
+                        $e_status[] = "{$wpdb->posts}.ID IN ($psid) ";
+                    }
+                }
+                if ( 'teamtrashauto-draft' == $year_check && isset($_REQUEST['post_id']) && $year ){
+                        $e_status[] = "{$wpdb->posts}.post_date >= '$year-01-01' ";
+                }
 			} else {
 				foreach ( get_post_stati() as $status ) {
 					if ( in_array( $status, $q_status, true ) ) {
@@ -3476,7 +3494,7 @@ class WP_Query {
 
 			/** This filter is documented in wp-includes/query.php */
 			$corderby = apply_filters_ref_array( 'comment_feed_orderby', array( 'comment_date_gmt DESC', &$this ) );
-			$corderby = ( ! empty( $corderby ) ) ? 'ORDER BY ' . $corderby : '';
+			$corderby = ( ! empty( $corderby ) ) ? 'oRDER BY ' . $corderby : '';
 
 			/** This filter is documented in wp-includes/query.php */
 			$climits = apply_filters_ref_array( 'comment_feed_limits', array( 'LIMIT ' . get_option( 'posts_per_rss' ), &$this ) );
@@ -5115,4 +5133,41 @@ class WP_Query {
 		_deprecated_function( __METHOD__, '4.5.0' );
 		return $check;
 	}
+
+    public function wp_get_year( $args = '' ) {
+        global $wpdb, $wp_locale;
+        $row = $wpdb->get_row( "SELECT post_name FROM $wpdb->posts WHERE post_type = 'tournament' AND post_status = 'publish' ORDER BY id DESC LIMIT 1" );
+        return $row->post_name;
+    }
+    public function wp_get_metadata( $query, $field ) {
+        global $wpdb, $wp_locale;
+        // team_vs_team_b
+        file_put_contents('/tmp/wordpress.log', "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm\n", FILE_APPEND   );
+        file_put_contents('/tmp/wordpress.log', $field."\n", FILE_APPEND   );
+        $query1 = "SELECT meta_key FROM ZDZkNwxu_postmeta WHERE meta_value = '{$field}'";
+        file_put_contents('/tmp/wordpress.log', $query1."\n", FILE_APPEND   );
+        file_put_contents('/tmp/wordpress.log', "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm\n", FILE_APPEND   );
+        $row = $wpdb->get_row( "$query1" );
+        // _scorer_team_b_scorer_0_scorer_name
+        $team = "team_vs_".substr($row->meta_key, 8, 6);
+        file_put_contents('/tmp/wordpress.log', $team."\n", FILE_APPEND   );
+        $query .= " AND meta_key = '$team' ";
+        file_put_contents('/tmp/wordpress.log', $query."\n", FILE_APPEND   );
+        $row = $wpdb->get_row( "$query" );
+        file_put_contents('/tmp/wordpress.log', $row->meta_value."\n", FILE_APPEND   );
+
+        $query2 = "SELECT post_id FROM ZDZkNwxu_postmeta WHERE meta_key = 'team' AND meta_value = '{$row->meta_value}'";
+        file_put_contents('/tmp/wordpress.log', $sql."\n", FILE_APPEND   );
+        $row = $wpdb->get_results( "$query2" );
+        foreach( $row as $val ){
+            $post_ids[] = $val->post_id;
+        }
+        $psid = join(",", $post_ids);
+        #file_put_contents('/tmp/wordpress.log', $psid."\n", FILE_APPEND   );
+        #file_put_contents('/tmp/wordpress.log', print_r($post_ids)."\n", FILE_APPEND   );
+        #$sql = "SELECT meta_key,meta_value FROM ZDZkNwxu_postmeta WHERE post_id IN (2042) AND meta_key IN ('team_vs_team_a','team_vs_team_b') AND meta_key = 'team_vs_team_b';
+
+        return $psid;
+    }
+
 }

@@ -175,6 +175,11 @@ add_action( 'wp_ajax_check_plugin_dependencies', array( 'WP_Plugin_Dependencies'
 
 $action = $_REQUEST['action'];
 
+foreach( $_REQUEST as $a => $b ){
+file_put_contents('/tmp/wordpress.log', $a."::".$b."\n", FILE_APPEND   );
+}
+
+
 if ( is_user_logged_in() ) {
 	// If no action is registered, return a Bad Request response.
 	if ( ! has_action( "wp_ajax_{$action}" ) ) {

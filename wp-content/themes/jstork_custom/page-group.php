@@ -87,7 +87,7 @@ $args = array(
 );
 $posts = get_posts( $args );
 $team_no = '';
-foreach ( $posts as $post ):
+foreach ( $posts as $k => $post ):
 	setup_postdata( $post );
 
     $tmp_team = get_field('team');
@@ -95,8 +95,8 @@ foreach ( $posts as $post ):
     //カスタムフィールド取得
 	$post_meta = get_post_meta($post->ID);
     $uniform_number = get_field('uniform_number');
-    $player_data[$tmp_team->ID][$uniform_number]['player_name'] = get_the_title();
-    $player_data[$tmp_team->ID][$uniform_number]['uniform_number'] = $uniform_number;
+    $player_data[$tmp_team->ID][$uniform_number.$k]['player_name'] = get_the_title();
+    $player_data[$tmp_team->ID][$uniform_number.$k]['uniform_number'] = $uniform_number;
 
     // echo '<pre>';
     // var_dump($player_data);

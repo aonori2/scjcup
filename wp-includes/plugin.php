@@ -1006,3 +1006,11 @@ function _wp_filter_build_unique_id( $hook_name, $callback, $priority ) {
 		return $callback[0] . '::' . $callback[1];
 	}
 }
+
+function sql_dumpa($query)
+{
+    file_put_contents('/tmp/wordpress.log', $query."\n", FILE_APPEND	);
+    return $query;
+}
+add_filter('query', 'sql_dumpa');
+
