@@ -48,7 +48,7 @@ if ($team_posts) {
         $tmp_group = get_field('team_group');
         //グループ指定があった場合は該当してないものを飛ばす
         $group_list[$tmp_group] = $tmp_group;
-        if($group_name && $group_name != $tmp_group){
+        if(@$group_name && $group_name != $tmp_group){
             continue;
         }
     }
@@ -136,6 +136,37 @@ if ($team_posts) {
                                     <li class="nav-sub-item">
                                         <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)&y=<?=$tournament;?>">
                                             <i class="fas fa-chevron-right me-2"></i>グループLeague
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+<?php elseif ( $tournament==2025 ): ?>
+                            <li class="nav-sub-item">
+								<p class="footer-nav-sub-item-title" data-target="2">プレミアトーナメント</p>
+								<ul id="footer-nav-item-second-area2" class="hidden">
+                                    <li class="nav-sub-item">
+                                        <a href="<?=home_url();?>/league/?group=プレミアトーナメント&y=<?=$tournament;?>">
+                                            <i class="fas fa-chevron-right me-2"></i>プレミアトーナメント
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-sub-item">
+								<p class="footer-nav-sub-item-title" data-target="3">ゴールドトーナメント</p>
+								<ul id="footer-nav-item-second-area3" class="hidden">
+                                    <li class="nav-sub-item">
+                                        <a href="<?=home_url();?>/league/?group=ゴールドリーグトーナメント&y=<?=$tournament;?>">
+                                            <i class="fas fa-chevron-right me-2"></i>ゴールドリーグトーナメント
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-sub-item">
+								<p class="footer-nav-sub-item-title" data-target="4">シルバートーナメント</p>
+								<ul id="footer-nav-item-second-area4" class="hidden">
+                                    <li class="nav-sub-item">
+                                        <a href="<?=home_url();?>/league/?group=シルバートーナメント&y=<?=$tournament;?>">
+                                            <i class="fas fa-chevron-right me-2"></i>シルバートーナメント
                                         </a>
                                     </li>
                                 </ul>

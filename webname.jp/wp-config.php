@@ -21,7 +21,7 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'cmnfsqpx_crr0z1z' );
+define( 'DB_NAME', 'cmnfsqpx_crr0z1z_webname' );
 
 #define( 'SAVEQUERIES', true );
 

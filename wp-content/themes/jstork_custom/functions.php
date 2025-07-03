@@ -239,10 +239,12 @@ function my_force_group_template( $template ) {
 function wp_get_year( $args = '' ) {
 	global $wpdb, $wp_locale;
     $row = $wpdb->get_row( "SELECT post_name FROM $wpdb->posts WHERE post_type = 'tournament' AND post_status = 'publish' ORDER BY id DESC LIMIT 1" );
-    if ( current_user_can( 'tournament_editor' ) ) {
+    if ( isset($_REQUEST['y']) && is_numeric($_REQUEST['y']) ){
+        return $_REQUEST['y'];
+    } else if ( current_user_can( 'tournament_editor' ) ) {
         return $row->post_name;
     } else {
-        return $row->post_name;
-        //return (int)($row->post_name-1);
+        //return $row->post_name;
+        return (int)($row->post_name-1);
     }
 }

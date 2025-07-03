@@ -259,6 +259,14 @@ if ($team_posts) {
     <section class="">
         <?php
         if($group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"||$group_name == "グループD" || $group_name == "グループE" || $group_name == "グループF"){
+            switch( $group_name ){
+                case "グループA": $g=''; break;
+                case "グループB": $g=''; break;
+                case "グループC": $g='1'; break;
+                case "グループD": $g='1'; break;
+                case "グループE": $g='3'; break;
+                case "グループF": $g='3'; break;
+            }
         ?>
         <p class="mx-2 schedule-sub-title">グループリーグ</p>
         <div class="schedule-group-button-area">
@@ -572,7 +580,7 @@ if ($team_posts) {
             <?php } ?>
                         <?php if ( $loop == 4 ): ?>
                         <div class="schedule-group-button-area" />
-                        <img src="/img/e1710_1.png" width=300 style="position:absolute; left:230px; top;50px;" /><img src="/img/1737848547401.jpg" width=300  style="margin:20px;"/>
+                        <img src="/img/e1710_1<?=$g;?>.png" width=300 style="position:absolute; left:230px; top;50px;" /><img src="/img/1737848547401.jpg" width=300  style="margin:20px;"/>
 
                         </div>
                         <?php endif; ?>

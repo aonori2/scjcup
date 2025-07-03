@@ -56,7 +56,7 @@ if ($team_posts) {
         $group_list[$tmp_group] = $tmp_group;
 
         //グループ指定があった場合は該当してないものを飛ばす
-        if($group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC")
+        if($group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"||$group_name == "グループD" || $group_name == "グループE" || $group_name == "グループF")
         if($group_name && $group_name != $tmp_group){
             continue;
         }
@@ -96,7 +96,21 @@ if ($team_posts) {
         setup_postdata( $post );
 
 
+        if ( $default_year == 2025 ){
+        $tmp_group = $group_name;
+        } else {
         $tmp_group = get_field('team_group');
+        }
+        if($group_name && $group_name != $tmp_group){
+            continue;
+        }
+
+        if ( $default_year == 2025 ){
+        if ( !strstr($post->post_title,$group_name) ){
+            continue;
+        }
+        }
+/*
         //該当してないマッチは除外
         if ( strstr($group_name,'プレミア') ){
             if($group_name && $group_name != $tmp_group){
@@ -109,15 +123,16 @@ if ($team_posts) {
                     continue;
                 }
             } else {
-                continue;
+                #continue;
             }
         }
+*/
 
         //カスタムフィールド取得
         $post_meta = get_post_meta($post->ID);
         $match_data[$post->ID]['match_name'] = get_the_title();
 
-        $match_data[$post->ID]['team_group'] = get_field('team_group') ?? array_shift(explode("-",$group_name));
+        $match_data[$post->ID]['team_group'] = get_field('team_group');// ?? array_shift(explode("-",$group_name));
         $match_data[$post->ID]['team_point'] = get_field('team_point');
         $match_data[$post->ID]['is_pk'] = get_field('is_pk');
         $match_data[$post->ID]['team_point_pk'] = get_field('team_point_pk');
@@ -129,10 +144,10 @@ if ($team_posts) {
         $match_data[$post->ID]['match_court'] = get_field('match_court');
         $match_data[$post->ID]['scorer'] = get_field('scorer');
 
-        // echo '<pre>';
-        // var_dump($match_data[$post->ID]['team_vs']['team_a']->ID);
-        // var_dump($team_data[$match_data[$post->ID]['team_vs']['team_a']->ID]['team_name']);
-        // echo '</pre>';
+        #echo '<pre>';
+        #var_dump($match_data[$post->ID]['team_vs']['team_a']->ID);
+        #var_dump($team_data[$match_data[$post->ID]['team_vs']['team_a']->ID]['team_name']);
+        #echo '</pre>';
 
         //初期化
         if(!isset($result_data[$match_data[$post->ID]['team_vs']['team_a']->ID]['vs_count'])){
@@ -243,16 +258,24 @@ if ($team_posts) {
     <h5 class="text-center font-bold title">試合日程・結果</h5>
     <section class="">
         <?php
-        if($group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"){
+        if($group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"||$group_name == "グループD" || $group_name == "グループE" || $group_name == "グループF"){
+            switch( $group_name ){
+                case "グループA": $g=''; break;
+                case "グループB": $g=''; break;
+                case "グループC": $g='1'; break;
+                case "グループD": $g='1'; break;
+                case "グループE": $g='3'; break;
+                case "グループF": $g='3'; break;
+            }
         ?>
         <p class="mx-2 schedule-sub-title">グループリーグ</p>
         <div class="schedule-group-button-area">
                         <?php
                         //存在するグループ分だけリンク生成
                         ksort($group_list);
-                        foreach($group_list as $group_name){
+                        foreach($group_list as $gname){
                         ?>
-                                <a href="/league/?group=<?=$group_name;?>&y=<?=$tournament;?>"><?=$group_name;?></a>
+                                <a href="/league/?group=<?=$gname;?>&y=<?=$tournament;?>"><?=$gname;?></a>
                         <?
                         }
                         ?>
@@ -267,7 +290,7 @@ if ($team_posts) {
             <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)&y=<?=$tournament;?>">シルバー</a>
         </div>    
         <?php
-        }elseif($group_name == "プレミアリーグ(上位)A" || $group_name == "ゴールドリーグ(中位)A" || $group_name == "シルバーリーグ(下位)A" || $group_name == "プレミアリーグ(上位)B" || $group_name == "ゴールドリーグ(中位)B" || $group_name == "シルバーリーグ(下位)B"){
+        }elseif(false&&$group_name == "プレミアリーグ(上位)A" || $group_name == "ゴールドリーグ(中位)A" || $group_name == "シルバーリーグ(下位)A" || $group_name == "プレミアリーグ(上位)B" || $group_name == "ゴールドリーグ(中位)B" || $group_name == "シルバーリーグ(下位)B"){
         ?>
         <p class="mx-2 schedule-sub-title">順位決定リーグ</p>
         <div class="schedule-group-button-area">
@@ -307,6 +330,38 @@ if ($team_posts) {
         </div>    
         <?php endif; ?>
 
+        <?php if($group_name == "プレミアトーナメント" || $group_name == "ゴールドトーナメント" || $group_name == "シルバートーナメント"): ?>
+        <br />
+        <p class="mx-2 schedule-sub-title">順位決定トーナメント</p>
+        <div class="schedule-group-button-area">
+            <a href="<?=home_url();?>/league/?group=プレミアトーナメント&y=<?=$tournament;?>">プレミアトーナメント</a>
+            <a href="<?=home_url();?>/league/?group=ゴールドトーナメント&y=<?=$tournament;?>">ゴールドトーナメント</a>
+            <a href="<?=home_url();?>/league/?group=シルバートーナメント&y=<?=$tournament;?>">シルバートーナメント</a>
+        </div>    
+        <br />
+        <?php
+            if($group_name == "プレミアトーナメント"){
+                $page = 1;
+            } elseif($group_name == "ゴールドトーナメント"){
+                $page = 2;
+            } elseif($group_name == "シルバートーナメント"){
+                $page = 3;
+            }
+        ?>
+
+<?php if ( $tournament == 2025 && strstr($_SERVER['HTTP_USER_AGENT'], "Chrome") ): ?>
+        <iframe width="300" height="400" src="<?= home_url(); ?>/web/viewer.html?file=/img/report.pdf#page=<?= $page ?>&zoom=page-width" allowfullscreen></iframe>
+        <a href="<?= home_url(); ?>/web/viewer.html?file=/img/report.pdf">pdfファイル</a>
+
+<?php else: ?>
+        <!embed src="/img/report.pdf#page=<?= $page ?>" type="application/pdf" width="100%" height="600">
+
+<?php endif; ?>
+        <?php endif; ?>
+
+        <?php
+        if($tournament<=2024 || $group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"||$group_name == "グループD" || $group_name == "グループE" || $group_name == "グループF"):
+        ?>
         <div class="schedule-group-name mb-3">
             <p class="font-bold"><?=$group_name;?></p>
         </div>
@@ -352,82 +407,10 @@ if ($team_posts) {
                 </tbody>
             </table>
         </div>
-
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="/js/jquery-bracket-master/dist/jquery.bracket.min.js"></script>
-<link href="/js/jquery-bracket-master/dist/jquery.bracket.min.css" rel="stylesheet">
+        <?php endif; ?>
 
         <!-- 試合見出し -->
         <div class="mt-5">
-
-<div id="resize" class="demo" style="height:400px;">
-</div>
-<script type="text/javascript">
-
-var singleElimination = {
-  "teams": [              // Matchups
-    ["Team 1", "Team 2"], // First match
-    ["Team 3", "Team 4"], // Second match
-    ["Team 5", "Team 6"], // First match
-    ["Team 7", "Team 8"]  // Second match
-  ],
-  "results": [            // List of brackets (single elimination, so only one bracket)
-    [                     // List of rounds in bracket
-      [                   // First round in this bracket
-        [1, 2],           // Team 1 vs Team 2
-        [3, 4],           // Team 3 vs Team 4
-        [1, 2],           // Team 1 vs Team 2
-        [3, 4]            // Team 3 vs Team 4
-      ],
-      [                   // Second (final) round in single elimination bracket
-        [5, 6],           // Match for first place
-        [7, 8]            // Match for 3rd place
-      ],
-      [                   // Second (final) round in single elimination bracket
-        [5, 6],           // Match for first place
-        [7, 6],           // Match for first place
-      ]
-    ]
-  ]
-}
-$('.demo').bracket({
-  init: singleElimination,
-  teamWidth: 60,
-});
-
-$('.demo').bracket({
-  init: null, // data to initialize
-  save: null, // called whenever bracket is modified
-  userData: null, // custom user data
-  onMatchClick: null, // callback
-  onMatchHover: null, // callback
-  decorator: null, // a function
-  skipSecondaryFinal: false,
-  skipGrandFinalComeback: false,
-  skipConsolationRound: false,
-  dir: 'rl', // "rl" or  "lr",
-  disableToolbar: false,
-  disableTeamEdit: false,
-  teamWidth: 200, // number
-  scoreWidth: '', // number
-  roundMargin: '', // number
-  matchMargin: '', // number
-});
-
-var resizeParameters = {
-  teamWidth: 60,
-  scoreWidth: 20,
-  matchMargin: 10,
-  roundMargin: 50,
-  init: minimalData
-};
- 
-function updateResizeDemo() {
-  $('#resize .demo').bracket(resizeParameters);
-}
- 
-$(updateResizeDemo)
-</script>
 
             <?php
             //取得できた試合数分だけループ
@@ -445,8 +428,9 @@ $(updateResizeDemo)
 
                 <!-- 第N試合 -->
                 <?php
-                if($match_count%2==1){
-                    $loop++;
+                if($tournament==2025||$match_count%2==1){
+                    //$loop++;
+                    $loop = $match_count;
                 ?>
                 <div class="schedule-group-section-title">
                     <p class="text-md schedule-section-button" data-target="<?=$loop;?>">第<?=$loop;?>試合</p>
@@ -593,14 +577,35 @@ $(updateResizeDemo)
                         ?>
                     </div>
                 </div>
-            <?
-                }
-            }
-            ?>
+            <?php } ?>
+                        <?php if ( $loop == 4 ): ?>
+                        <div class="schedule-group-button-area" />
+                        <img src="/img/e1710_1<?=$g;?>.png" width=300 style="position:absolute; left:230px; top;50px;" /><img src="/img/1737848547401.jpg" width=300  style="margin:20px;"/>
+
+                        </div>
+                        <?php endif; ?>
+            <?php } ?>
 
 
         </div>
     </section>
 </main>
+<script type="text/javascript">
+<?php if ( $default_year == 2025 ): ?>
+$(".schedule-section-button").each(function(index, element){
+    var openAreaTarget = $(this).data('target');
+
+    if(!$(this).hasClass('open')) {
+        $('.group' + openAreaTarget).slideDown();
+        $(this).addClass('open');
+    } else {
+        $('.group' + openAreaTarget).slideUp();
+        $(this).removeClass('open');
+    }
+});
+<?php endif; ?>
+
+
+</script>
 
 <?php get_footer(); ?>

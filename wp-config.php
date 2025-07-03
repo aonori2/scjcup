@@ -29,7 +29,7 @@ define( 'DB_NAME', 'cmnfsqpx_crr0z1z' );
 define( 'DB_USER', 'cmnfsqpx_wp_dywbr' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'U^zc3~fd*0xZ^V5V' );
+define( 'DB_PASSWORD', 'U^zc3~fd*0xZ^V5V' ); //odWa3L*&IZEo@sT4
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost:3306' );
