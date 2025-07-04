@@ -274,6 +274,7 @@ if ($team_posts) {
                         //存在するグループ分だけリンク生成
                         ksort($group_list);
                         foreach($group_list as $gname){
+                        if ( $gname == '所属グループなし' ) continue;
                         ?>
                                 <a href="/league/?group=<?=$gname;?>&y=<?=$tournament;?>"><?=$gname;?></a>
                         <?
@@ -342,10 +343,13 @@ if ($team_posts) {
         <?php
             if($group_name == "プレミアトーナメント"){
                 $page = 1;
+                $g = '';
             } elseif($group_name == "ゴールドトーナメント"){
                 $page = 2;
+                $g = '1';
             } elseif($group_name == "シルバートーナメント"){
                 $page = 3;
+                $g = '3';
             }
         ?>
 
@@ -428,9 +432,12 @@ if ($team_posts) {
 
                 <!-- 第N試合 -->
                 <?php
-                if($tournament==2025||$match_count%2==1){
-                    //$loop++;
+                if(($tournament==2025&&strstr($group_name,'グループ'))||$match_count%2==1){
+                    if(($tournament==2025&&strstr($group_name,'グループ'))){
                     $loop = $match_count;
+                    } else {
+                    $loop++;
+                    }
                 ?>
                 <div class="schedule-group-section-title">
                     <p class="text-md schedule-section-button" data-target="<?=$loop;?>">第<?=$loop;?>試合</p>
@@ -578,12 +585,19 @@ if ($team_posts) {
                     </div>
                 </div>
             <?php } ?>
-                        <?php if ( $loop == 4 ): ?>
+                        <?php if(($tournament==2025&&strstr($group_name,'グループ'))){ ?>
+                        <?php if ( $loop == 4 ){ ?>
                         <div class="schedule-group-button-area" />
                         <img src="/img/e1710_1<?=$g;?>.png" width=300 style="position:absolute; left:230px; top;50px;" /><img src="/img/1737848547401.jpg" width=300  style="margin:20px;"/>
-
                         </div>
-                        <?php endif; ?>
+                        <?php } ?>
+                        <?php } else { ?>
+                        <?php if( $match_count == 8 ){ ?>
+                        <div class="schedule-group-button-area" />
+                        <img src="/img/e1710_1<?=$g;?>.png" width=300 style="position:absolute; left:230px; top;50px;" /><img src="/img/1737848547401.jpg" width=300  style="margin:20px;"/>
+                        </div>
+                        <?php } ?>
+                        <?php } ?>
             <?php } ?>
 
 

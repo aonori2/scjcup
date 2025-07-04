@@ -124,6 +124,7 @@ wp_reset_postdata(); // 直前のクエリを復元する
     //存在するグループ分だけリンク生成
     ksort($group_list);
     foreach($group_list as $group_name){
+    if ( $group_name == '所属グループなし' ) continue;
     ?>
         <li style="padding:1em; margin-top:1em;"><a href="?group=<?=$group_name;?>&y=<?=$tournament;?>"><?=$group_name;?></a></li>
     <?

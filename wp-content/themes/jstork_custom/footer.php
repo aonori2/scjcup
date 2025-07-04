@@ -72,6 +72,7 @@ if ($team_posts) {
                             //存在するグループ分だけリンク生成
                             ksort($group_list);
                             foreach($group_list as $group_name){
+                            if ( $group_name == '所属グループなし' ) continue;
                             ?>
                                 <li><a href="/group/?group=<?=$group_name;?>&y=<?=$tournament;?>"><i class="fas fa-chevron-right me-2"></i><?=$group_name;?></a></li>
                             <?
@@ -87,11 +88,12 @@ if ($team_posts) {
 						<ul id="footer-nav-subItem2" class="hidden">
 							<li class="footer-nav-sub-item">
 								<p class="footer-nav-sub-item-title" data-target="1">グループリーグ</p>
-								<ul id="footer-nav-item-second-area1" class="hidden">
+								<ul id="footer-nav-item-second-area1" class="show visible">
                                     <?php
                                     //存在するグループ分だけリンク生成
                                     ksort($group_list);
                                     foreach($group_list as $group_name){
+                                    if ( $group_name == '所属グループなし' ) continue;
                                     ?>
 									    <li class="nav-sub-item">
                                             <a href="/league/?group=<?=$group_name;?>&y=<?=$tournament;?>">
@@ -143,7 +145,7 @@ if ($team_posts) {
 <?php elseif ( $tournament==2025 ): ?>
                             <li class="nav-sub-item">
 								<p class="footer-nav-sub-item-title" data-target="2">プレミアトーナメント</p>
-								<ul id="footer-nav-item-second-area2" class="hidden">
+								<ul id="footer-nav-item-second-area2" class="show visible">
                                     <li class="nav-sub-item">
                                         <a href="<?=home_url();?>/league/?group=プレミアトーナメント&y=<?=$tournament;?>">
                                             <i class="fas fa-chevron-right me-2"></i>プレミアトーナメント
@@ -153,17 +155,17 @@ if ($team_posts) {
                             </li>
                             <li class="nav-sub-item">
 								<p class="footer-nav-sub-item-title" data-target="3">ゴールドトーナメント</p>
-								<ul id="footer-nav-item-second-area3" class="hidden">
+								<ul id="footer-nav-item-second-area3" class="show visible">
                                     <li class="nav-sub-item">
                                         <a href="<?=home_url();?>/league/?group=ゴールドリーグトーナメント&y=<?=$tournament;?>">
-                                            <i class="fas fa-chevron-right me-2"></i>ゴールドリーグトーナメント
+                                            <i class="fas fa-chevron-right me-2"></i>ゴールドトーナメント
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-sub-item">
 								<p class="footer-nav-sub-item-title" data-target="4">シルバートーナメント</p>
-								<ul id="footer-nav-item-second-area4" class="hidden">
+								<ul id="footer-nav-item-second-area4" class="show visible">
                                     <li class="nav-sub-item">
                                         <a href="<?=home_url();?>/league/?group=シルバートーナメント&y=<?=$tournament;?>">
                                             <i class="fas fa-chevron-right me-2"></i>シルバートーナメント

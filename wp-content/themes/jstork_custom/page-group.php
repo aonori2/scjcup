@@ -124,6 +124,7 @@ wp_reset_postdata(); // 直前のクエリを復元する
     //存在するグループ分だけリンク生成
     ksort($group_list);
     foreach($group_list as $group_name){
+    if ( $group_name == '所属グループなし' ) continue;
     ?>
         <li style="padding:1em; margin-top:1em;"><a href="?group=<?=$group_name;?>&y=<?=$tournament;?>"><?=$group_name;?></a></li>
     <?
@@ -135,6 +136,7 @@ wp_reset_postdata(); // 直前のクエリを復元する
     //チーム情報をループして表示
     ksort($team_data);
     foreach($team_data as $group_name => $teams){
+    if ( $group_name == '所属グループなし' ) continue;
     ?>
         <div class="my-5 mx-2" target="#groupA">
             <h5 id="<?=$group_name;?>" class="font-bold px-2 py-2 team-block-title"><?=$group_name;?></h5>

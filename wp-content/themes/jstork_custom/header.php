@@ -140,6 +140,7 @@ body iframe {
                         //存在するグループ分だけリンク生成
                         ksort($group_list);
                         foreach($group_list as $group_name){
+                        if ( $group_name == '所属グループなし' ) continue;
                         ?>
                             <li class="nav-sub-item">
                                 <a href="/group/?group=<?=$group_name;?>&y=<?=$tournament;?>">
@@ -163,11 +164,12 @@ body iframe {
                     <ul id="nav-item-sub-area2" class="nav-item-sub-area">
                         <li class="nav-sub-item">
                             <p class="nav-sub-item-title" data-target="1">グループリーグ</p>
-                            <ul id="nav-item-second-area1" class="hidden">
+                            <ul id="nav-item-second-area1" class="show visible">
                         <?php
                         //存在するグループ分だけリンク生成
                         ksort($group_list);
                         foreach($group_list as $group_name){
+                        if ( $group_name == '所属グループなし' ) continue;
                         ?>
                             <li class="nav-sub-item">
                                 <a href="/league/?group=<?=$group_name;?>&y=<?=$tournament;?>">
@@ -222,7 +224,7 @@ body iframe {
 <?php elseif ( $default_year == 2025 ): ?>
                         <li class="nav-sub-item">
                             <p class="nav-sub-item-title" data-target="2">プレミアトーナメント</p>
-                            <ul id="nav-item-second-area2" class="hidden">
+                            <ul id="nav-item-second-area2" class="show visible">
                                 <li class="nav-sub-item">
                                     <a href="<?=home_url();?>/league/?group=プレミアトーナメント&y=<?=$tournament;?>">
                                         <i class="fas fa-chevron-right me-2"></i>プレミアトーナメント
@@ -232,7 +234,7 @@ body iframe {
                         </li>
                         <li class="nav-sub-item">
                             <p class="nav-sub-item-title" data-target="3">ゴールドトーナメント</p>
-                            <ul id="nav-item-second-area3" class="hidden">
+                            <ul id="nav-item-second-area3" class="show visible">
                                 <li class="nav-sub-item">
                                     <a href="<?=home_url();?>/league/?group=ゴールドトーナメント&y=<?=$tournament;?>">
                                         <i class="fas fa-chevron-right me-2"></i>ゴールドトーナメント
@@ -242,7 +244,7 @@ body iframe {
                         </li>
                         <li class="nav-sub-item">
                             <p class="nav-sub-item-title" data-target="4">シルバートーナメント</p>
-                            <ul id="nav-item-second-area4" class="hidden">
+                            <ul id="nav-item-second-area4" class="show visible">
                                 <li class="nav-sub-item">
                                     <a href="<?=home_url();?>/league/?group=シルバートーナメント&y=<?=$tournament;?>">
                                         <i class="fas fa-chevron-right me-2"></i>シルバートーナメント

@@ -140,6 +140,7 @@ body iframe {
                         //存在するグループ分だけリンク生成
                         ksort($group_list);
                         foreach($group_list as $group_name){
+                        if ( $group_name == '所属グループなし' ) continue;
                         ?>
                             <li class="nav-sub-item">
                                 <a href="/group/?group=<?=$group_name;?>&y=<?=$tournament;?>">

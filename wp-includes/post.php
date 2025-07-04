@@ -2555,6 +2555,7 @@ function get_posts( $args = null ) {
 	);
 
 	$parsed_args = wp_parse_args( $args, $defaults );
+
 	if ( empty( $parsed_args['post_status'] ) ) {
 		$parsed_args['post_status'] = ( 'attachment' === $parsed_args['post_type'] ) ? 'inherit' : 'publish';
 	}
