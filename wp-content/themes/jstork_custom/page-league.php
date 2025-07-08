@@ -311,9 +311,9 @@ if ($team_posts) {
         ?>        
         <p class="mx-2 schedule-sub-title">順位決定リーグ</p>
         <div class="schedule-group-button-area">
-            <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)-トーナメント&y=<?=$tournament;?>">プレミアトーナメント</a>
-            <a href="<?=home_url();?>/league/?group=ゴールドリーグ(中位)-順位決定戦&y=<?=$tournament;?>">ゴールド順位決定戦</a>
-            <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)-順位決定戦&y=<?=$tournament;?>">シルバー順位決定戦</a>
+            <a href="<?=home_url();?>/league/?group=プレミアリーグ(上位)-トーナメント&y=<?=$tournament;?>">プレミア</a>
+            <a href="<?=home_url();?>/league/?group=ゴールドリーグ(中位)&y=<?=$tournament;?>">ゴールド</a>
+            <a href="<?=home_url();?>/league/?group=シルバーリーグ(下位)&y=<?=$tournament;?>">シルバー</a>
         </div>    
         <?php
         }
@@ -355,33 +355,36 @@ if ($team_posts) {
 
 <?php if ( $tournament == 2025 && strstr($_SERVER['HTTP_USER_AGENT'], "Chrome") ): ?>
         <iframe width="300" height="400" src="<?= home_url(); ?>/web/viewer.html?file=/img/report.pdf#page=<?= $page ?>&zoom=page-width" allowfullscreen></iframe>
-        <a href="<?= home_url(); ?>/web/viewer.html?file=/img/report.pdf">pdfファイル</a>
-
 <?php else: ?>
-        <!embed src="/img/report.pdf#page=<?= $page ?>" type="application/pdf" width="100%" height="600">
+        <embed src="/img/report.pdf#page=<?= $page ?>" type="application/pdf" width="100%" height="600">
 
 <?php endif; ?>
+        <div class="text-sm text-center">
+        <a href="<?= home_url(); ?>/img/report.pdf">pdfファイル</a>
+        </div>
         <?php endif; ?>
 
         <?php
-        if($tournament<=2024 || $group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"||$group_name == "グループD" || $group_name == "グループE" || $group_name == "グループF"):
+        if ( strstr($group_name,"トーナメント") ){
+            $hidden = " hidden";
+        }
         ?>
         <div class="schedule-group-name mb-3">
-            <p class="font-bold"><?=$group_name;?></p>
+            <p class="mx-2 schedule-sub-title"><?= $group_name;?></p>
         </div>
         <div class="">
             <table class="table table-bordered border-2">
                 <thead>
                 <tr class="table-th-bg">
-                    <th class="text-sm">順位</th>
+                    <th class="text-sm<?= $hidden ?>">順位</th>
                     <th class="text-sm">クラブ名</th>
                     <th class="text-sm text-center">試合数</th>
-                    <th class="text-sm text-center">勝ち点</th>
+                    <th class="text-sm text-center<?= $hidden ?>">勝ち点</th>
                     <th class="text-sm text-center">得点</th>
                     <th class="text-sm text-center">失点</th>
-                    <th class="text-sm text-center">得失差</th>
+                    <th class="text-sm text-center<?= $hidden ?>">得失差</th>
                     <th class="text-sm text-center">勝</th>
-                    <th class="text-sm text-center">分</th>
+                    <th class="text-sm text-center<?= $_hidden ?>">分</th>
                     <th class="text-sm text-center">負</th>
                     </tr>
                 </thead>
@@ -389,19 +392,22 @@ if ($team_posts) {
                     <?php
                     $rank=1;
                     foreach($result_data as $key => $result){
+                        if ( strlen($team_data[$result['team_no']]['team_name']) <= 3 ){
+                            continue;
+                        }
                     ?>
                         <tr class="text-sm">
-                            <th scope="row"><?=$rank;?></th>
+                            <th scope="row" class="<?= $hidden ?>"><?=$rank;?></th>
                             <?
                             ?>
                             <td class=""><?=$team_data[$result['team_no']]['team_name'];?></td>
                             <td><?=$result['vs_count']==0 ? 0 : $result['vs_count'];?></td>
-                            <td><?=$result['win_point']==0 ? 0 : $result['win_point'];?></td>
+                            <td class="<?= $hidden ?>"><?=$result['win_point']==0 ? 0 : $result['win_point'];?></td>
                             <td><?=$result['goal_count']==0 ? 0 : $result['goal_count'];?></td>
                             <td><?=$result['lost_count']==0 ? 0 : $result['lost_count'];?></td>
-                            <td><?=$result['goal_difference']==0 ? 0 : $result['goal_difference'];?></td>
+                            <td class="<?= $hidden ?>"><?=$result['goal_difference']==0 ? 0 : $result['goal_difference'];?></td>
                             <td><?=$result['win_count']==0 ? 0 : $result['win_count'];?></td>
-                            <td><?=$result['same_count']==0 ? 0 : $result['same_count'];?></td>
+                            <td class="<?= $_hidden ?>"><?=$result['same_count']==0 ? 0 : $result['same_count'];?></td>
                             <td><?=$result['lose_count']==0 ? 0 : $result['lose_count'];?></td>
                         </tr>
                     <?php
@@ -411,6 +417,7 @@ if ($team_posts) {
                 </tbody>
             </table>
         </div>
+        <?php if($tournament<=2024 || $group_name == "グループA" || $group_name == "グループB" || $group_name == "グループC"||$group_name == "グループD" || $group_name == "グループE" || $group_name == "グループF"): ?>
         <?php endif; ?>
 
         <!-- 試合見出し -->
@@ -591,7 +598,7 @@ if ($team_posts) {
                         <img src="/img/e1710_1<?=$g;?>.png" width=300 style="position:absolute; left:230px; top;50px;" /><img src="/img/1737848547401.jpg" width=300  style="margin:20px;"/>
                         </div>
                         <?php } ?>
-                        <?php } else { ?>
+                        <?php } elseif($tournament==2025){ ?>
                         <?php if( $match_count == 8 ){ ?>
                         <div class="schedule-group-button-area" />
                         <img src="/img/e1710_1<?=$g;?>.png" width=300 style="position:absolute; left:230px; top;50px;" /><img src="/img/1737848547401.jpg" width=300  style="margin:20px;"/>
