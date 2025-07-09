@@ -1,4 +1,5 @@
 <?php
+global $NOW_YEAR;
 
 // 子テーマのstyle.cssを後から読み込む
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
@@ -240,11 +241,12 @@ function wp_get_year( $args = '' ) {
 	global $wpdb, $wp_locale;
     $row = $wpdb->get_row( "SELECT post_name FROM $wpdb->posts WHERE post_type = 'tournament' AND post_status = 'publish' ORDER BY post_name DESC LIMIT 1" );
     if ( isset($_REQUEST['y']) && is_numeric($_REQUEST['y']) ){
-        return $_REQUEST['y'];
+        return (int)($row->post_name);
+        //return $_REQUEST['y'];
     } else if ( current_user_can( 'tournament_editor' ) ) {
-        return $row->post_name;
+        return (int)($row->post_name);
     } else {
         //return $row->post_name;
-        return (int)($row->post_name-1);
+        return (int)($row->post_name);
     }
 }

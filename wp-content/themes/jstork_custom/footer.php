@@ -1,7 +1,6 @@
 <?php
 // デフォルトの年を設定
 $default_year = wp_get_year();
-#$default_year = 2024;
 $tournament = $_REQUEST['y'] ?? '';
 if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
     $tournament = $default_year;
@@ -157,7 +156,7 @@ if ($team_posts) {
 								<p class="footer-nav-sub-item-title" data-target="3">ゴールドトーナメント</p>
 								<ul id="footer-nav-item-second-area3" class="show visible">
                                     <li class="nav-sub-item">
-                                        <a href="<?=home_url();?>/league/?group=ゴールドリーグトーナメント&y=<?=$tournament;?>">
+                                        <a href="<?=home_url();?>/league/?group=ゴールドトーナメント&y=<?=$tournament;?>">
                                             <i class="fas fa-chevron-right me-2"></i>ゴールドトーナメント
                                         </a>
                                     </li>
@@ -261,13 +260,24 @@ if ($team_posts) {
 						</ul>
 					</li>
 					<li>
-						<a href="<?=home_url();?>/sponsor<?=$tournament;?>/?y=<?=$tournament;?>">協賛企業ご紹介</a>
+						<a href="<?=home_url();?>/sponsor<?=($tournament>2023) ? $tournament : '';?>/?y=<?=$tournament;?>">協賛企業ご紹介</a>
 					</li>
 <!--					
 					<li>
 						<a href="<?=home_url();?>/coupon/">お得なクーポン</a>
 					</li>
 -->
+					<li>
+						<p class="footer-nav-item" data-target="3">過去大会</p>
+						<ul id="footer-nav-subItem3" class="hidden">
+                        <?php $now_year = $default_year; ?>
+                        <?php for($i=1; ($now_year-2023)>=$i; ++$i): ?>
+						    <li>
+							    <a href="<?=home_url();?>/?y=<?=($now_year-$i);?>"><i class="fas fa-chevron-right me-2"></i><?=($now_year-$i);?></a>
+    						</li>
+                        <?php endfor; ?>
+						</ul>
+					</li>
 				</ul>
 			</div>
 		</div>

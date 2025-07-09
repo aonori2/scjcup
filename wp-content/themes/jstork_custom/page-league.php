@@ -1,7 +1,6 @@
 <?php
 // デフォルトの年を設定
 $default_year = wp_get_year();
-#$default_year = 2024;
 $tournament = $_REQUEST['y'] ?? '';
 if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
     $tournament = $default_year;
@@ -96,7 +95,7 @@ if ($team_posts) {
         setup_postdata( $post );
 
 
-        if ( $default_year == 2025 ){
+        if ( $tournament == 2025 ){
         $tmp_group = $group_name;
         } else {
         $tmp_group = get_field('team_group');
@@ -105,7 +104,7 @@ if ($team_posts) {
             continue;
         }
 
-        if ( $default_year == 2025 ){
+        if ( $tournament == 2025 ){
         if ( !strstr($post->post_title,$group_name) ){
             continue;
         }
@@ -612,7 +611,7 @@ if ($team_posts) {
     </section>
 </main>
 <script type="text/javascript">
-<?php if ( $default_year == 2025 ): ?>
+<?php if ( $tournament == 2025 ): ?>
 $(".schedule-section-button").each(function(index, element){
     var openAreaTarget = $(this).data('target');
 

@@ -1,7 +1,6 @@
 <?php
 // デフォルトの年を設定
 $default_year = wp_get_year();
-#$default_year = 2024;
 $tournament = $_REQUEST['y'] ?? '';
 if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
     $tournament = $default_year;
@@ -182,7 +181,7 @@ body iframe {
 
                             </ul>
                         </li>
-<?php if ( $default_year <= 2024 ): ?>
+<?php if ( $tournament <= 2024 ): ?>
                         <li class="nav-sub-item">
                             <p class="nav-sub-item-title" data-target="2">プレミアリーグ(上位)</p>
                             <ul id="nav-item-second-area2" class="hidden">
@@ -221,7 +220,7 @@ body iframe {
 
                     </ul>
                 </li>
-<?php elseif ( $default_year == 2025 ): ?>
+<?php elseif ( $tournament == 2025 ): ?>
                         <li class="nav-sub-item">
                             <p class="nav-sub-item-title" data-target="2">プレミアトーナメント</p>
                             <ul id="nav-item-second-area2" class="show visible">
@@ -261,6 +260,17 @@ body iframe {
                         協賛企業ご紹介
                     </a>
                 </li>
+				<li>
+					<p class="nav-item" data-target="3">過去大会</p>
+                    <ul id="nav-item-sub-area3" class="nav-item-sub-area">
+                        <?php $now_year = $tournament; ?>
+                        <?php for($i=1; ($now_year-2023)>=$i; ++$i): ?>
+						<li>
+							<a href="<?=home_url();?>/?y=<?=($now_year-$i);?>"><i class="fas fa-chevron-right me-2"></i><?=($now_year-$i);?></a>
+						</li>
+                        <?php endfor; ?>
+					</ul>
+				</li>
 <!--
                 <li class="mb-5">
                     <a href="<?=home_url();?>/coupon/">
@@ -275,8 +285,8 @@ body iframe {
                 <div class="px-1 py-2 d-flex">
                     <img class="site-logo mt-3 ms-1" src="<?=get_stylesheet_directory_uri(); ?>/img/saitama_logo.gif">
                     <div class="mx-2">
-                        <a href=/<?= (@$_REQUEST['y']!=2025&&@$_REQUEST['y']) ? '?y='.$_REQUEST['y'] : ''; ?>><img src="<?=get_stylesheet_directory_uri(); ?>/img/shimamura_header_logo.jpg?1" border=0></a>
-                        <p class="text-m text-md site-title font-bold">さいたまシティジュニアカップ<span class="site-sub-title"><?=$tournament;?></span></p>
+                        <a href=/><img src="<?=get_stylesheet_directory_uri(); ?>/img/shimamura_header_logo.jpg?1" border=0>
+                        <p class="text-m text-md site-title font-bold">さいたまシティジュニアカップ<span class="site-sub-title"><?=$tournament;?></span></p></a>
                     </div>
                 </div>
             </div>
