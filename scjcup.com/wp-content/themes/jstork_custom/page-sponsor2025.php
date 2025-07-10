@@ -28,11 +28,13 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
                         <a href="https://www.footballpark.jp/"><img class="sponsorship-img" src="<?=get_stylesheet_directory_uri(); ?>/img/sponsorship/Jcom_logo.jpg"></a>
                     </div>
 
+<?php /*
                     <!-- フットボールパーク -->
                     <div class="my-5">
                         <p class="overview-box-2-title font-bold my-2"><a href="https://www.jcom.co.jp/">有限会社弘武堂スポーツ（フットボールパーク）</a></p>
                         <a href="https://www.jcom.co.jp/"><img class="sponsorship-img" src="<?=get_stylesheet_directory_uri(); ?>/img/sponsorship/footballpark.jpg"></a>
                     </div>
+*/ ?>
 
                     <!-- アサヒ飲料株式会社 -->
                     <div class="my-5">
@@ -48,7 +50,7 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
 
                     <!-- エヌ・ティ・ティ・スポーツコミュニティ株式会社 -->
                     <div class="my-5">
-                        <p class="overview-box-2-title font-bold my-2"><a href="https://www.ardija.co.jp">エヌ・ティ・ティ・スポーツコミュニティ<br>株式会社</a></p>
+                        <p class="overview-box-2-title font-bold my-2"><a href="https://www.ardija.co.jp">RB大宮株式会社</a></p>
                         <a href="https://www.ardija.co.jp"><img class="sponsorship-img my-3" src="<?=get_stylesheet_directory_uri(); ?>/img/sponsorship/Ardj_logo_4c.png"></a>
                     </div>
 
@@ -76,6 +78,7 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
                         <a href="https://www.sportsexpand.jp/"><img class="sponsorship-img mt-3" src="<?=get_stylesheet_directory_uri(); ?>/img/sponsorship/sportsexpand_inc.jpg"></a>
                     </div>
 
+<?php /****
                     <!-- ユナイテッドスポーツブランズジャパン株式会社 -->
                     <div class="my-5">
                         <p class="overview-box-2-title font-bold my-2"><a href="https://uhlsport.jp">ユナイテッドスポーツブランズジャパン<br>株式会社</a></p>
@@ -128,6 +131,7 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
                         <p class="overview-box-2-title font-bold my-2"><a href="">株式会社K&C</a></p>
                         <!-- <img class="sponsorship-img" src="<?=get_stylesheet_directory_uri(); ?>/img/sponsorship/shimamura.jpeg"> -->
                     </div>
+***/ ?>
                 </div>
             </section>
 

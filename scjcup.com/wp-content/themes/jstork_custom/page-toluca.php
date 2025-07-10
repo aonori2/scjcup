@@ -6,6 +6,11 @@ if (!preg_match('/^\d+$/', $tournament) || $tournament > $default_year) {
     $tournament = $default_year;
 }
 
+if ( $default_year == 2025 ){
+    header("Location: /toluca2025/");
+    exit;
+}
+
 ?>
 <?php get_header(); ?>
 

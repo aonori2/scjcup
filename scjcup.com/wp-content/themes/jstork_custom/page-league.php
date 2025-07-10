@@ -213,13 +213,16 @@ if ($team_posts) {
     endforeach; // ループの終了
     wp_reset_postdata(); // 直前のクエリを復元する
 
+    $init_result_data = $result_data;
 
 
     //順位計算
     //勝ち点が多い順 ＞ 得失点差が大きい順　＞　得点が大きい順
+    $vs_count = 0;
     if($result_data){
         foreach($result_data as $team_no => $result){
             $sort_array[$team_no] = $result;
+            $vs_count += $result['vs_count'];
         }
     }
     // ソートの基準となるキーに対応する値の配列を作成
@@ -237,7 +240,7 @@ if ($team_posts) {
     $goal_count_array = createArrayForSort('goal_count', $sort_array);
 
     //優先順位で昇順ソートする
-    if ( $win_point_array && $goal_difference_array && $goal_count_array ){
+    if ( $vs_count && $win_point_array && $goal_difference_array && $goal_count_array ){
     array_multisort($win_point_array, SORT_DESC, $goal_difference_array, SORT_DESC, $goal_count_array, SORT_DESC, $result_data);
     }
 }
