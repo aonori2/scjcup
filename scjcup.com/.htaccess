@@ -1,0 +1,21 @@
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^index\.php$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+# Origin Setting
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RedirectMatch 301 ^/hogehoge/(.*) /fugafuga/$1
+</IfModule>
+# Origin Setting
+<IfModule mod_mime.c>
+    AddType text/javascript mjs
+</IfModule>
