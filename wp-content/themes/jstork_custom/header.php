@@ -60,6 +60,7 @@ if ($team_posts) {
 
 <head>
 <meta charset="utf-8">
+<meta name='robots' content='noindex' />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><?php wp_title(''); ?><?=$tournament;?></title>
 <meta name="HandheldFriendly" content="True">
